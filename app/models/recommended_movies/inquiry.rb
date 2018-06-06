@@ -2,13 +2,13 @@ require 'line/bot'
 
 class RecommendedMovies::Inquiry
   class << self
-    def create(args = {})
+    def create(payload)
       @line_client ||= Line::Bot::Client.new { |config|
         config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
         config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
       }
 
-      events = @line_client.parse_events_from(args.to_json)
+      events = @line_client.parse_events_from(payload)
 
       events.each do |event|
         reply_message(event)
