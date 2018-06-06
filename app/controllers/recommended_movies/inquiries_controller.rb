@@ -1,11 +1,16 @@
 class RecommendedMovies::InquiriesController < ApplicationController
   before_action :set_line_client
-  before_action :validate_signature
 
   protect_from_forgery with: :null_session
 
   def create
-    RecommendedMovies::Inquiry.create(params)
+    body = request.body.read
+
+    unless line_client.validate_signature(params.to_json, http_x_line_signature)
+      head :proxy_authentication_required
+    end
+
+    RecommendedMovies::Inquiry.create(body)
   rescue => ex
     Rails.logger.error(ex.class)
     Rails.logger.error(ex.message)
@@ -28,11 +33,5 @@ class RecommendedMovies::InquiriesController < ApplicationController
 
   def http_x_line_signature
     request.env['HTTP_X_LINE_SIGNATURE']
-  end
-
-  def validate_signature
-    unless line_client.validate_signature(params.to_json, http_x_line_signature)
-      head :proxy_authentication_required
-    end
   end
 end
