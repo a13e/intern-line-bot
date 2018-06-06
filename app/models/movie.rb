@@ -19,7 +19,6 @@ class Movie
   private
 
   def parse_response(json)
-    { url: "https://filmarks.com/movies/60905" }
-    # JSON.parse(json).deep_symbolize_keys
+    JSON.parse(json).deep_symbolize_keys
   end
 end
