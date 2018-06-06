@@ -13,20 +13,22 @@ class WebhookController < ApplicationController
   def callback
     body = request.body.read
 
-    signature = request.env['HTTP_X_LINE_SIGNATURE']
-    unless client.validate_signature(body, signature)
-      head 470
-    end
+    head 470 unless client.validate_signature(body, request.env['HTTP_X_LINE_SIGNATURE'])
 
     events = client.parse_events_from(body)
-    events.each { |event|
+
+    events.each do |event|
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
+          # message = {
+          #   type: 'text',
+          #   text: event.message['text']
+          # }
           message = {
             type: 'text',
-            text: event.message['text']
+            text: "https://filmarks.com/movies/60905"
           }
           client.reply_message(event['replyToken'], message)
         when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
@@ -35,7 +37,8 @@ class WebhookController < ApplicationController
           tf.write(response.body)
         end
       end
-    }
+    end
+
     head :ok
   end
 end
