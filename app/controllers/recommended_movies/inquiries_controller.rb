@@ -10,7 +10,7 @@ class RecommendedMovies::InquiriesController < ApplicationController
       head :proxy_authentication_required
     end
 
-    RecommendedMovies::Inquiry.create(body)
+    RecommendedMovie::Inquiry.create(body)
   rescue => ex
     Rails.logger.error(ex.class)
     Rails.logger.error(ex.message)

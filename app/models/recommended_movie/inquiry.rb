@@ -1,6 +1,6 @@
 require 'line/bot'
 
-class RecommendedMovies::Inquiry
+class RecommendedMovie::Inquiry
   class << self
     def create(payload)
       @line_client ||= Line::Bot::Client.new { |config|
@@ -21,12 +21,7 @@ class RecommendedMovies::Inquiry
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          user_text = event.message['text']
-          movie = Movie.fetch_recommendation_movie!
-          message = {
-            type: 'text',
-            text: movie.url
-          }
+          message = RecommendedMovie::Inquiry::Message.create(event.message['text'])
           @line_client.reply_message(event['replyToken'], message)
         when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
           response = @line_client.get_message_content(event.message['id'])
