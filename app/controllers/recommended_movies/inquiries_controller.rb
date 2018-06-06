@@ -31,7 +31,7 @@ class RecommendedMovies::InquiriesController < ApplicationController
   end
 
   def validate_signature
-    unless line_client.validate_signature(params, http_x_line_signature)
+    unless line_client.validate_signature(params.to_json, http_x_line_signature)
       head :proxy_authentication_required
     end
   end
