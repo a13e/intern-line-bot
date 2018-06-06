@@ -11,7 +11,7 @@ class Movie
     # uri = URI.parse(ENDPOINT)
     # json = Net::HTTP.get(uri)
     # response = parse_response(json)
-    
+
     response = { url: "https://filmarks.com/movies/60905" }
     self.new(url: response[:url])
   end
