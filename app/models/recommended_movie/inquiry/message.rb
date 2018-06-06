@@ -5,7 +5,7 @@ class RecommendedMovie::Inquiry::Message
       { type: 'text', text: movie.url }
     else
       text = "その日、人類は思い出した。奴らに支配されていた恐怖を。鳥かごの中に囚われていた屈辱を。"
-      { type: 'text', text: message }
+      { type: 'text', text: text }
     end
   end
 end
