@@ -8,9 +8,9 @@ class Movie
   end
 
   def self.fetch_recommendation_movie!
-    # uri = URI.parse(ENDPOINT)
-    # json = Net::HTTP.get(uri)
-    # response = parse_response(json)
+    ## uri = URI.parse(ENDPOINT)
+    ## json = Net::HTTP.get(uri)
+    ## response = parse_response(json)
 
     response = { url: "https://filmarks.com/movies/60905" }
     self.new(url: response[:url])
