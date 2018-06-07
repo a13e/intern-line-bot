@@ -1,18 +1,16 @@
 class Movie
   attr_accessor :url
 
-  ENDPOINT = 'http://localhost:3000/movie'
+  ENDPOINT = 'https://intense-savannah-60148.herokuapp.com/'
 
   def initialize(args = {})
     @url = args[:url]
   end
 
   def self.fetch_recommendation_movie!
-    ## uri = URI.parse(ENDPOINT)
-    ## json = Net::HTTP.get(uri)
-    ## response = parse_response(json)
-
-    response = { url: "https://filmarks.com/movies/60905" }
+    uri = URI.parse(ENDPOINT)
+    json = Net::HTTP.get(uri)
+    response = parse_response(json)
     self.new(url: response[:url])
   end
 
