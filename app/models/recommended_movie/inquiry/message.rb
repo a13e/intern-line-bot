@@ -35,7 +35,7 @@ class RecommendedMovie::Inquiry::Message
       when recommendation_word?(user_text)
         create_old_man_message
       when naito_word?(user_text)
-        create_naito_message
+        create_naito_message(user_text)
       when almin_word?(user_text)
         create_almin_message
       else
@@ -59,7 +59,7 @@ class RecommendedMovie::Inquiry::Message
       create_message(OLD_MAN_WORDS.sample)
     end
 
-    def create_naito_message
+    def create_naito_message(user_text)
       if neto_word?(user_text)
         create_message(NETO_URL)
       else
