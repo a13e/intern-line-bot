@@ -7,16 +7,18 @@ class Movie
     @url = args[:url]
   end
 
-  def self.fetch_recommendation_movie!
-    uri = URI.parse(ENDPOINT)
-    json = Net::HTTP.get(uri)
-    response = parse_response(json)
-    self.new(url: response[:url])
-  end
+  class << self
+    def fetch_recommendation_movie!
+      uri = URI.parse(ENDPOINT)
+      json = Net::HTTP.get(uri)
+      response = parse_response(json)
+      self.new(url: response[:url])
+    end
 
-  private
+    private
 
-  def parse_response(json)
-    JSON.parse(json).deep_symbolize_keys
+    def parse_response(json)
+      JSON.parse(json).deep_symbolize_keys
+    end
   end
 end
