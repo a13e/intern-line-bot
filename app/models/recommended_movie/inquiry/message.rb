@@ -59,7 +59,7 @@ class RecommendedMovie::Inquiry::Message
       create_message(OLD_MAN_WORDS.sample)
     end
 
-    def create_naito_message(user_text)
+    def create_naito_message
       if neto_word?(user_text)
         create_message(NETO_URL)
       else
