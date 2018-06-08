@@ -11,7 +11,7 @@ class RecommendedMovie::Inquiry::Message
     "今の気分はどうだ？",
     "最近どうだ？",
     "俺に聞くのか？",
-    "恋でもしてるのか"
+    "恋でもしてるのか？"
   ]
 
   NAITO_WORDS = [
@@ -32,12 +32,12 @@ class RecommendedMovie::Inquiry::Message
   class << self
     def create(user_text)
       case
-      when recommendation_word?(user_text)
-        create_old_man_message
       when naito_word?(user_text)
         create_naito_message(user_text)
       when almin_word?(user_text)
         create_almin_message
+      when recommendation_word?(user_text)
+        create_old_man_message
       else
         create_movie_recommendation_message!
       end
