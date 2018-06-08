@@ -6,6 +6,8 @@ class RecommendedMovie::Inquiry::Message
     "お薦め",
     "オヌヌメ"
   ]
+  
+  SHINGEKI = "お進め"
 
   OLD_MAN_WORDS = [
     "今の気分はどうだ？",
@@ -29,6 +31,8 @@ class RecommendedMovie::Inquiry::Message
 
   ALMIN_WORD = "その日、人類は思い出した。奴らに支配されていた恐怖を。鳥かごの中に囚われていた屈辱を。"
 
+  SHINGEKI_WORD = "誰が進撃の巨人や！"
+
   class << self
     def create(user_text)
       case
@@ -36,6 +40,8 @@ class RecommendedMovie::Inquiry::Message
         create_naito_message(user_text)
       when almin_word?(user_text)
         create_almin_message
+      when shingeki_word?(user_text)
+        create_shingeki_message
       when recommendation_word?(user_text)
         create_old_man_message
       else
@@ -72,6 +78,10 @@ class RecommendedMovie::Inquiry::Message
         user_text.include?(word)
       end
     end
+    
+    def shingeki_word?(user_text)
+      user_text.include?(SHINGEKI)
+    end
 
     def neto_word?(user_text)
       user_text.include?(NETO)
@@ -89,5 +99,10 @@ class RecommendedMovie::Inquiry::Message
       movie = Movie.fetch_recommendation_movie!
       create_message(movie.url)
     end
+
+    def create_shingeki_message
+      create_message(SHINGEKI_WORD)
+    end
+
   end
 end
